@@ -44,6 +44,20 @@ def submit():
         return f"Error: {str(e)}"
 
 
+# To do Form Submission
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo():
+    try:
+        data = request.form
+        db.todos.insert_one({
+            "itemName": data.get("itemName"),
+            "itemDescription": data.get("itemDescription"),
+            "itemId": data.get("itemId")
+        })
+        return redirect(url_for('success'))
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 # Success Page
 @app.route('/success')
 def success():
